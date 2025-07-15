@@ -74,29 +74,29 @@ void OnDataReceived(string data, UduinoDevice deviceName = null) // Arduino
     // if (GameInfoAction != null) GameInfoAction(data);
     GameInfoAction?.Invoke(data);
 
-        if (data == "S1") // wind is made
+    if (data == "S1") // wind is made
+    {
+        if (myGameState == GameStates.Loop) // only now react on wind
         {
-            if (myGameState == GameStates.Loop) // only now react on wind
-            {
-                mySec.Enqueue(Time.time); // at click to frequency calculator 
-                curFrequency = getClickFreq;
-                Debug.Log("CLICK: Frquency > " + curFrequency + " [" + mySec.Count + "] Threshold:" + config.iActionFrequency);
+            mySec.Enqueue(Time.time); // at click to frequency calculator 
+            curFrequency = getClickFreq;
+            Debug.Log("CLICK: Frquency > "+curFrequency+" [" + mySec.Count + "] Threshold:"+config.iActionFrequency);
 
-                if (curFrequency > config.iActionFrequency) // check if wind is fast enough
-                {
-                    myGameState = GameStates.Wind;
-                    StartVideo(1, false); // videoplayer 1, video 1, no looping
-                }
+            if (curFrequency > config.iActionFrequency) // check if wind is fast enough
+            {
+                myGameState = GameStates.Wind;
+                StartVideo(1, false); // videoplayer 1, video 1, no looping
             }
         }
-
-        if (data == "B11") myGameState = GameStates.Loop; 
-
-        if (data == "D1") myGameLanguage = GameLanguage.Deutsch;
-        if (data == "E1") myGameLanguage = GameLanguage.Englisch;
-
-        showStateInfo();
     }
+
+    if (data == "B11") myGameState = GameStates.Loop; 
+
+    if (data == "D1") myGameLanguage = GameLanguage.Deutsch;
+    if (data == "E1") myGameLanguage = GameLanguage.Englisch;
+
+    showStateInfo();
+}
 ```
 
 ## Time Tools & Reset
@@ -148,21 +148,21 @@ private float getClickFreq
 
 private String showStateInfo(String moreInfo = "")
 {
-        String infoString = "STATE: [" + (int)myGameState + " <> " + myGameState.ToString() + "] ";
-        byte currentVPlayer = (byte)(videoPlayerToggle ? 1 : 0);
+    String infoString = "STATE: [" + (int)myGameState + " <> " + myGameState.ToString() + "] ";
+    byte currentVPlayer = (byte)(videoPlayerToggle ? 1 : 0);
 
-        infoString += "Video: " + currentVPlayer;
+    infoString += "Video: " + currentVPlayer;
 
-        curFrequency = getClickFreq; // calc new frequency
-        infoString += " Clicks/min> " + curFrequency + " cpm [#" + mySec.Count + "] Thres:" + config.iActionFrequency + "\n" +
-            myGameLanguage.ToString();
+    curFrequency = getClickFreq; // calc new frequency
+    infoString += " Clicks/min> " + curFrequency + " cpm [#" + mySec.Count + "] Thres:" + config.iActionFrequency + "\n" +
+        myGameLanguage.ToString();
 
-        if (statusText != null) statusText.text = infoString;
+    if (statusText != null) statusText.text = infoString;
 
-        // infoString += "  Time:" + getTimeUser.ToString("00.00");
-        // infoString += "  TotalTime:" + getTimeTotal.ToString("00.00");
+    // infoString += "  Time:" + getTimeUser.ToString("00.00");
+    // infoString += "  TotalTime:" + getTimeTotal.ToString("00.00");
 
-        return infoString;
+    return infoString;
 }
 ```
 
