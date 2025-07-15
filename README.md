@@ -1,13 +1,27 @@
 # Unity_CSharp_Tools
 Unity C# Tools
 
-## State Engine
+## State Engine - GameStates
 
 ```
 private enum GameStates { Start, Loop, Wind };
 private GameStates myGameState;
 
-myGameState = GameStates.Start;
+myGameState = GameStates.Start; // Init
+
+String infoString = "STATE: [" + (int)myGameState + " <> " + myGameState.ToString() + "] ";
+```
+
+use with
+
+```
+switch (myGameState)
+    {
+        case (GameStates.Start):
+            break;
+        default:
+            break;
+    }
 ```
 
 ## TimeOut Timer
