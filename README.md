@@ -31,7 +31,7 @@ switch (myGameState)
 private float timeStart;
 private float timeUser;
 public int timeLoop = 999; // loop
-public int timeOut = 999; // time outTime - if no interaction
+public int timeOut = 30; // time outTime - if no interaction, for example 30 sec
 
 timeStart = Time.time;
 timeUser = 0.0f;
