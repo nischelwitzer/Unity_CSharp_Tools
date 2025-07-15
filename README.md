@@ -16,12 +16,12 @@ use with
 
 ```
 switch (myGameState)
-    {
-        case (GameStates.Start):
-            break;
-        default:
-            break;
-    }
+{
+    case (GameStates.Start):
+        break;
+    default:
+        break;
+}
 ```
 
 ## TimeOut Timer
