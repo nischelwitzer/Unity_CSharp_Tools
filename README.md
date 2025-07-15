@@ -155,6 +155,12 @@ private float getClickFreq
 
 ## Info and Debugging Tools
 
+Info String with TMPro
+* using TMPro;
+* public TextMeshProUGUI infoText;
+* if (infoText != null) infoText.text = infoString;
+* String infoString = "STATE: [" + (int)myGameState + " <> " + myGameState.ToString() + "] ";
+  
 ```
 // ##########################################################################
 // ##### Info and Debugging Tools
